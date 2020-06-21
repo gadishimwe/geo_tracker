@@ -1,9 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:geo_tracker/models/location.dart';
+import 'package:geo_tracker/services/auth.dart';
 import 'package:geo_tracker/services/geolocator.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 class Map extends StatefulWidget {
   final Position initialPosition;
@@ -16,8 +18,11 @@ class _MapState extends State<Map> {
   final GeolocatorService goeService = GeolocatorService();
   Completer<GoogleMapController> _controller = Completer();
   MapType _currentMapType = MapType.hybrid;
+  final AuthService _authService = AuthService();
+  final GeolocatorService geolocatorService = GeolocatorService();
   @override
   void initState() {
+    geolocatorService.checkService();
     goeService.getCurrentLocation().listen((position) {
       centerScreen(position);
     });
@@ -26,10 +31,22 @@ class _MapState extends State<Map> {
 
   @override
   Widget build(BuildContext context) {
+    final locations = Provider.of<List<Location>>(context) ?? [];
     return Scaffold(
       appBar: AppBar(
-        title: Text('Geo-Tracker'),
+        title: Text('Geo Locator'),
         backgroundColor: Colors.green[900],
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () async {
+              await _authService.signOut();
+            },
+            child: Text(
+              'Logout',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Stack(children: <Widget>[
@@ -37,7 +54,7 @@ class _MapState extends State<Map> {
             initialCameraPosition: CameraPosition(
                 target: LatLng(widget.initialPosition.latitude,
                     widget.initialPosition.longitude),
-                zoom: 30),
+                zoom: 18),
             mapType: _currentMapType,
             myLocationEnabled: true,
             compassEnabled: true,
@@ -45,6 +62,7 @@ class _MapState extends State<Map> {
               _controller.complete(controller);
             },
             myLocationButtonEnabled: false,
+            markers: Set<Marker>.of(getMarkers(locations)),
           ),
           Padding(
             padding: EdgeInsets.all(10),
@@ -72,6 +90,7 @@ class _MapState extends State<Map> {
                   ),
                   FloatingActionButton(
                     onPressed: () async {
+                      geolocatorService.checkService();
                       Position position = await Geolocator().getCurrentPosition(
                           desiredAccuracy: LocationAccuracy.high);
                       centerScreen(position);
@@ -94,5 +113,20 @@ class _MapState extends State<Map> {
       CameraUpdate.newCameraPosition(CameraPosition(
           target: LatLng(position.latitude, position.longitude), zoom: 18)),
     );
+  }
+
+  List<Marker> getMarkers(List<Location> locations) {
+    var markers = List<Marker>();
+
+    locations.forEach((location) {
+      Marker marker = Marker(
+        markerId: MarkerId(location.email),
+        draggable: false,
+        infoWindow: InfoWindow(title: location.email),
+        position: LatLng(location.lat, location.lng),
+      );
+      markers.add(marker);
+    });
+    return markers;
   }
 }

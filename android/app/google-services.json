@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "832874330330",
+    "firebase_url": "https://geo-locator-3d789.firebaseio.com",
+    "project_id": "geo-locator-3d789",
+    "storage_bucket": "geo-locator-3d789.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832874330330:android:458f90d294ac0ca2640de3",
+        "android_client_info": {
+          "package_name": "com.gadishimwe.geo_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "832874330330-nitunftcbun36cderg0o5dtsugqvacq9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLtJDvFM7AobrJzI_CqJAmKzPS1oO5hZo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832874330330-nitunftcbun36cderg0o5dtsugqvacq9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
