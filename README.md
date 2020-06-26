@@ -7,7 +7,8 @@ Application to track your realtime location.
 - Open the app
 - Allow location permissions for the app
 
-![image](/assets/image.png)
+![image](/assets/image1.png)
+![image](/assets/image2.png)
 
 ## Getting Started
 

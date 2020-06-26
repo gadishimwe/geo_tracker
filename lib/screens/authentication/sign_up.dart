@@ -34,7 +34,7 @@ class _SignUpState extends State<SignUp> {
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: 40,
+            height: 10,
           ),
           SizedBox(
             height: 80,
@@ -153,6 +153,9 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                 ),
+                SizedBox(height: 20),
+                Text('by Gad Ishimwe'),
+                Text('email: coolshigad@gmail.com'),
               ],
             ),
           ),

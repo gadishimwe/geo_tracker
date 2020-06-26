@@ -24,7 +24,7 @@ class Wrapper extends StatelessWidget {
           return position != null
               ? StreamProvider<List<Location>>.value(
                   value: DatabaseService().locations,
-                  child: Map(initialPosition: position))
+                  child: Maps(initialPosition: position, uid: user.uid))
               : Loading();
         }),
       );

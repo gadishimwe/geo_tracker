@@ -34,6 +34,9 @@ dependencies:
   cloud_firestore: ^0.13.6
   flutter_spinkit: ^4.1.2+1
   location: ^3.0.2
+  permission_handler: ^4.4.0
+  android_intent: ^0.3.7+2
+  google_maps_webservice: ^0.0.17
 
 dev_dependencies:
   flutter_test:

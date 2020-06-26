@@ -8,13 +8,26 @@ class DatabaseService {
   final CollectionReference locationCollection =
       Firestore.instance.collection('locations');
   Future updateUserData(String email, double lat, double lng) async {
+    return await locationCollection.document(uid).setData(
+        {'uid': uid, 'email': email, 'lat': lat, 'lng': lng, 'online': false});
+  }
+
+  Future updateUserLocation(double lat, double lng) async {
     return await locationCollection
         .document(uid)
-        .setData({'uid': uid, 'email': email, 'lat': lat, 'lng': lng});
+        .updateData({'lat': lat, 'lng': lng});
+  }
+
+  Future updateUserStatus(bool status) async {
+    return await locationCollection
+        .document(uid)
+        .updateData({'online': status});
   }
 
   List<Location> _locationListFromSnapShot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
+    List _filteredLocations =
+        snapshot.documents.where((doc) => doc.data['online'] == true).toList();
+    return _filteredLocations.map((doc) {
       return Location(
         email: doc.data['email'],
         lat: doc.data['lat'],
@@ -26,19 +39,4 @@ class DatabaseService {
   Stream<List<Location>> get locations {
     return locationCollection.snapshots().map(_locationListFromSnapShot);
   }
-
-//   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
-//     return UserData(
-//       uid: uid,
-//       lat: snapshot.data['lat'],
-//       lng: snapshot.data['lng'],
-//     );
-//   }
-
-//   Stream<UserData> get userData {
-//     return locationCollection
-//         .document(uid)
-//         .snapshots()
-//         .map(_userDataFromSnapshot);
-//   }
 }

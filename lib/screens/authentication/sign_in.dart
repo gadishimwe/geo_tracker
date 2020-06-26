@@ -41,7 +41,7 @@ class _SignInState extends State<SignIn> {
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: 40,
+            height: 10,
           ),
           SizedBox(
             height: 80,
@@ -160,6 +160,9 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                 ),
+                SizedBox(height: 20),
+                Text('by Gad Ishimwe'),
+                Text('email: coolshigad@gmail.com'),
               ],
             ),
           ),

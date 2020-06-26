@@ -77,15 +77,17 @@ class _AskForPermissionState extends State<AskForPermission> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Ask for permisions'),
-          backgroundColor: Colors.red,
-        ),
-        body: Center(
-            child: Column(
+      appBar: AppBar(
+        title: Text('Ask for permisions'),
+        backgroundColor: Colors.red,
+      ),
+      body: Center(
+        child: Column(
           children: <Widget>[
             Text("All Permission Granted"),
           ],
-        )));
+        ),
+      ),
+    );
   }
 }
